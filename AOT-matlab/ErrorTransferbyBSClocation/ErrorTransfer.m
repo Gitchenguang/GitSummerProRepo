@@ -6,10 +6,10 @@
 % ***************************初始环境设置(开始)*****************************
 
 % 定位区域大小 landmark基站数目 
-Aerawidth=100; LandBSNum=3;
+Aerawidth=100; LandBSNum=7;
 
 % 随机选取基站时基站间的距离
-LandBSspace=50;
+LandBSspace=20;
 
 % 基站广播的消息设定
 % BSbroadinfo 1:id 2:flag( Landmark/Blind )  3:xposition  4:yposition 5:headings 6:angle  
@@ -80,8 +80,8 @@ tmpLBSbroadinfo=LBSbroadinfo;
 
             errorR=rand(1,1)*Aerawidth*ratio/100;theta=2*pi*rand(1,1);
             % 改成只在第一个基站位置中参入噪声（把行索引的：改为了基站id）
-            tmpLBSbroadinfo(1,xpos)=LBSbroadinfo(1,xpos)+errorR*sin(theta);
-            tmpLBSbroadinfo(1,ypos)=LBSbroadinfo(1,ypos)+errorR*cos(theta);
+            tmpLBSbroadinfo(:,xpos)=LBSbroadinfo(:,xpos)+errorR*sin(theta);
+            tmpLBSbroadinfo(:,ypos)=LBSbroadinfo(:,ypos)+errorR*cos(theta);
 
             [estimX,estimY,BSbanned]=lslocation(tmpLBSbroadinfo);
             tmpError(1,j)=sqrt( (samplexpos(1,i)-estimX).^2+(sampleypos(1,i)-estimY).^2);
